@@ -1,0 +1,49 @@
+/* Page Grid */
+.grid-container {
+    display: grid;
+    width: auto;
+    height: 100vh;
+    grid-template-areas:
+            "side1 main main main side2"
+}
+
+.side1 {
+    grid-area: side1;
+
+    background-color: grey;
+}
+.side2 {
+    grid-area: side2;
+
+    background-color: grey;
+}
+.main {
+    grid-area: main;
+
+}
+
+/* Main Content Grid */
+.main-grid {
+    display: grid;
+    width: auto;
+    height: 100vh;
+    grid-template-areas: 
+            "display"
+            "display"
+            "display"
+            "form"
+            "table";
+        
+}
+.display {
+    grid-area: display;
+    background-color: red;
+}
+.form {
+    grid-area: form;
+    background-color: blueviolet;
+}
+.table {
+    grid-area: table;
+    background-color: blue;
+}
