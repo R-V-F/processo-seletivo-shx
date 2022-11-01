@@ -37,11 +37,11 @@
 }
 .display {
     grid-area: display;
-    background-color: red;
+    background-color: orangered;
 }
 .form {
     grid-area: form;
-    background-color: blueviolet;
+    background-color: orange;
 }
 .table {
     grid-area: table;

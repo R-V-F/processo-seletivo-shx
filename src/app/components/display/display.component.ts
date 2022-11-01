@@ -16,8 +16,8 @@ export class DisplayComponent implements OnInit {
       fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.USDBRL.high + 'aa');
-        this.price = data.USDBRL.high;
+        console.log(data.USDBRL.bid + 'aa');
+        this.price = data.USDBRL.bid;
         this.updateDisplay();
       })
       .catch((err) => {
@@ -27,20 +27,21 @@ export class DisplayComponent implements OnInit {
     },30000)
   }
 
-  ngOnInit(): void {
-    
+  loadDisplay() {
     fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.USDBRL.high);
-        this.price = data.USDBRL.high;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.USDBRL.bid);
+      this.price = data.USDBRL.bid;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  ngOnInit(): void {
+    this.loadDisplay();
     this.updateDisplay();
-    
-    
   }
 
 }
