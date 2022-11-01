@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+}
+
+.price-grid {
+    display: grid;
+    grid-template-areas: "price";
+    place-items:  center;
+    height: 100%;
+    width: 100%;
+}
+
+.price {
+    grid-area: price;
+    border: 1px solid;
+    height: 50%;
+    width: 50%;
+    display: grid;
+    grid-template-areas: "price-tag";
+    place-items:  center;
+}
+.price-tag {
+    grid-area: price-tag;
+    font-size: 120px;
+}
