@@ -26,24 +26,26 @@
 .main-grid {
     display: grid;
     width: auto;
-    height: 100vh;
+    height: auto;
     grid-template-areas: 
             "display"
             "display"
             "display"
-            "form"
-            "table";
+            "form";
         
 }
 .display {
     grid-area: display;
+    height: 50vh;
     background-color: orangered;
 }
 .form {
     grid-area: form;
+    height: auto;
     background-color: orange;
 }
-.table {
-    grid-area: table;
+/* .table {
+    grid-area: tablee;
+    height: auto;
     background-color: blue;
-}
+} */

@@ -9,6 +9,21 @@ export class FormComponent implements OnInit {
 
   date1:Object | undefined;
   date2:Object | undefined; 
+  price:Number = 0;
+  requested:Boolean = false;
+  tableSource:Object[] | undefined;
+
+
+  async loadPrice() {
+    await fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL")
+    .then((response) => response.json())
+    .then((data) => {
+      this.price = data.USDBRL.bid;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 
   /**
    * 
@@ -21,7 +36,10 @@ export class FormComponent implements OnInit {
     let api_url_2 = '&end_date=';
 
     let loop = new Date(beginning);
-    let prices_arr: string[] = [];
+    let date_prices_arr: any[] = [];
+
+    await this.loadPrice();
+    console.log(`getPrices() -> loadPrices() => ${this.price}`);
 
     while(loop <= end){
 
@@ -29,10 +47,23 @@ export class FormComponent implements OnInit {
       const loop_date = `${loop.getFullYear()}${String(loop.getMonth() + 1).padStart(2, '0')}${String(loop.getDate()).padStart(2, '0')}`;
       const fetch_url = `${api_url}`+`${previous_date}`+`${api_url_2}`+`${loop_date}`;
 
+      let date = `${loop.getDate()}/${loop.getMonth()}/${loop.getFullYear()}`;
+
       await fetch(fetch_url)
         .then((response) => response.json())
         .then((data) => {
-          prices_arr.push(data[0].bid);
+          let row = {
+            date: "",
+            bid: "",
+            delta: ""
+          };
+          let delta = ((Number(this.price)/Number(data[0].bid)) - 1) * 100;
+
+          row.date = date;
+          row.bid = data[0].bid;
+          row.delta = String(delta.toFixed(2));
+
+          date_prices_arr.push(row);
 
           const newDate = loop.setDate(loop.getDate() + 1);
           loop = new Date(newDate);
@@ -40,14 +71,14 @@ export class FormComponent implements OnInit {
         .catch((err) => {
           console.log(err);
 
-          prices_arr.push('err');
+          date_prices_arr.push('err');
 
           const newDate = loop.setDate(loop.getDate() + 1);
           loop = new Date(newDate);
         });
     }
 
-    return prices_arr;
+    return date_prices_arr;
   }
 
   async onSubmit() {
@@ -63,8 +94,10 @@ export class FormComponent implements OnInit {
     const beginning = new Date(str_date1);
     const end = new Date(str_date2);
 
-    let prices_arr = await this.getPrices(beginning,end);
-    console.log(prices_arr);
+    this.tableSource = await this.getPrices(beginning,end);
+    this.requested = true;
+
+    console.log(this.tableSource);
     
 
   }

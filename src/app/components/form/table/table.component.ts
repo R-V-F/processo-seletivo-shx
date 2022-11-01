@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
+  price:Number | undefined;
+
+  @Input() source: any;
+  displayedColumns: string[] = ['Data', 'Valor', 'Var(%)'];
+
   constructor() { }
 
   ngOnInit(): void {
+    if(this.source) {
+      console.log('hello from table comp');
+      console.log(this.source);
+    }
   }
 
 }

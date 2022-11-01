@@ -31,7 +31,7 @@ export class DisplayComponent implements OnInit {
     fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL")
     .then((response) => response.json())
     .then((data) => {
-      console.log(data.USDBRL.bid);
+      // console.log(data.USDBRL.bid);
       this.price = data.USDBRL.bid;
     })
     .catch((err) => {
