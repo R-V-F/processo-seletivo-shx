@@ -12,13 +12,15 @@ import { AppComponent } from './app.component';
 import { DisplayComponent } from './components/display/display.component';
 import { FormComponent } from './components/form/form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TableComponent } from './components/form/table/table.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     DisplayComponent,
-    FormComponent
+    FormComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
