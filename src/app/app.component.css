@@ -9,13 +9,9 @@
 
 .side1 {
     grid-area: side1;
-
-    background-color: grey;
 }
 .side2 {
     grid-area: side2;
-
-    background-color: grey;
 }
 .main {
     grid-area: main;
@@ -29,23 +25,15 @@
     height: auto;
     grid-template-areas: 
             "display"
-            "display"
-            "display"
             "form";
         
 }
 .display {
     grid-area: display;
     height: 50vh;
-    background-color: orangered;
 }
 .form {
     grid-area: form;
     height: auto;
-    background-color: orange;
+    width: 100%;
 }
-/* .table {
-    grid-area: tablee;
-    height: auto;
-    background-color: blue;
-} */

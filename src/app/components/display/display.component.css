@@ -4,7 +4,10 @@
 
 .price-grid {
     display: grid;
-    grid-template-areas: "price";
+    grid-template-areas: 
+        "coin-img"
+        "coin-img"
+        "price";
     place-items:  center;
     height: 100%;
     width: 100%;
@@ -12,14 +15,42 @@
 
 .price {
     grid-area: price;
-    border: 1px solid;
+    /* border: 1px solid; */
     height: 50%;
-    width: 50%;
+    width: 80%;
     display: grid;
     grid-template-areas: "price-tag";
     place-items:  center;
 }
 .price-tag {
     grid-area: price-tag;
-    font-size: 120px;
+    font-size: 50px;
+    margin-top: -230px;
+}
+.coin-img {
+    grid-area: coin-img;
+    display: grid;
+    place-items:  center;
+
+}
+img {
+    height: 120px;
+    width: 120px;
+}
+
+
+/* d8d8d8  cor letra */
+/* 909090  cor numero */
+
+.currency {
+    color: #d8d8d8;
+}
+
+.number {
+    color: #909090;
+}
+
+.words {
+    color: goldenrod;
+    font-size: medium;
 }
