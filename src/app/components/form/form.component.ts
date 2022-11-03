@@ -34,7 +34,7 @@ export class FormComponent implements OnInit {
    * 
    * @param beginning start date
    * @param end end date
-   * @returns array with the bid prices 
+   * @returns array with objects to feed each row => one row/day
    */
   async getPrices(beginning: Date, end: Date) {
     let api_url = 'https://economia.awesomeapi.com.br/USD-BRL/1?start_date='; 
@@ -65,16 +65,13 @@ export class FormComponent implements OnInit {
             bid: data[0].bid,
             delta: delta.toFixed(2)
           }
-          
+
           date_prices_arr.push(row);
 
           const newDate = loop.setDate(loop.getDate() + 1);
           loop = new Date(newDate);
         })
         .catch((err) => {
-          console.log(err);
-          console.log(fetch_url);
-
           date_prices_arr.push('err');
 
           const newDate = loop.setDate(loop.getDate() + 1);
@@ -84,10 +81,16 @@ export class FormComponent implements OnInit {
 
     return date_prices_arr;
   }
-
+  /**
+   * Fetches table sources and set this.requested to true (renders table component) 
+   */
   async onSubmit() {
 
     const today = new Date();
+    if(this.date1 == undefined || this.date2 == undefined) {
+      alert('Entrada inválida! Entre a segunda data.');
+      return;
+    }
 
     if(this.date1! < today && this.date2! <= today) { // check entries validity
 
@@ -104,8 +107,6 @@ export class FormComponent implements OnInit {
 
       this.tableSource = await this.getPrices(beginning,end);
       this.requested = true;
-
-      console.log(this.tableSource);
     }
     else {
       alert('Entrada inválida!');

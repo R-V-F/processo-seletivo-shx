@@ -7,26 +7,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DisplayComponent implements OnInit {
 
-  price:Number | undefined;
+  price: number | undefined;
+  now: Date | undefined;
 
   constructor() { }
-
+  /**
+   * Updates this.price and this.now
+   */
   updateDisplay() {
     setTimeout(() => {
       fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.USDBRL.bid + 'aa');
         this.price = data.USDBRL.bid;
+        this.now = new Date();
         this.updateDisplay();
       })
       .catch((err) => {
-        console.log(err);
+        alert('API Error');
+        this.now = new Date();
         this.updateDisplay();
       })
     },30000)
   }
 
+  /**
+   * Updates this.price
+   */
   getPrice() {
     fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL")
     .then((response) => response.json())
@@ -35,12 +42,13 @@ export class DisplayComponent implements OnInit {
       this.price = data.USDBRL.bid;
     })
     .catch((err) => {
-      console.log(err);
-      this.price = -1;
+      alert('API Error');
     });
   }
 
   ngOnInit(): void {
+    this.now = new Date();
+
     this.getPrice()
 
     this.updateDisplay();

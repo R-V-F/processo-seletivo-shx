@@ -66,3 +66,10 @@ img {
     color: goldenrod;
     font-size: medium;
 }
+
+.update-msg {
+    font-size: small;
+    opacity: 50%;
+    color:#909090;
+    margin-top: 15px;
+}
