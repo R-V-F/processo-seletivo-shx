@@ -55,7 +55,7 @@ export class FormComponent implements OnInit {
         .then((data) => {
           let row = {
             date: "",
-            bid: "",
+            bid: 1,
             delta: ""
           };
           let delta = ((Number(this.price)/Number(data[0].bid)) - 1) * 100;
@@ -84,24 +84,30 @@ export class FormComponent implements OnInit {
   }
 
   async onSubmit() {
-    
-    // fixes date format for API req
-    let str_date1 = JSON.stringify(this.date1);
-    str_date1 = str_date1.slice(1,-6);
 
-    let str_date2 = JSON.stringify(this.date2);
-    str_date2 = str_date2.slice(1,-6);
-    //
+    const today = new Date();
 
-    const beginning = new Date(str_date1);
-    const end = new Date(str_date2);
+    if(this.date1! < today && this.date2! <= today) { // check entries validity
 
-    this.tableSource = await this.getPrices(beginning,end);
-    this.requested = true;
+      // fixes date format for API req
+      let str_date1 = JSON.stringify(this.date1);
+      str_date1 = str_date1.slice(1,-6);
 
-    console.log(this.tableSource);
-    
+      let str_date2 = JSON.stringify(this.date2);
+      str_date2 = str_date2.slice(1,-6);
+      //
 
+      const beginning = new Date(str_date1);
+      const end = new Date(str_date2);
+
+      this.tableSource = await this.getPrices(beginning,end);
+      this.requested = true;
+
+      console.log(this.tableSource);
+    }
+    else {
+      alert('Entrada inválida!');
+    }
   }
 
   

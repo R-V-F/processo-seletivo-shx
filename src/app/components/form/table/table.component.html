@@ -1,20 +1,20 @@
-<table mat-table [dataSource]="source" class="example-table mat-elevation-z2"
-        matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+<table mat-table [dataSource]="dataSource" class="example-table mat-elevation-z2"
+        matSort #empTbSort="matSort">
   <!-- Number Column -->
-  <ng-container matColumnDef="Data">
+  <ng-container matColumnDef="date">
     <th mat-header-cell *matHeaderCellDef>Data</th>
     <td mat-cell *matCellDef="let row">{{row.date}}</td>
   </ng-container>
 
   <!-- Title Column -->
-  <ng-container matColumnDef="Valor">
-    <th mat-header-cell *matHeaderCellDef>Valor</th>
+  <ng-container matColumnDef="bid">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Valor</th>
     <td mat-cell *matCellDef="let row">{{row.bid}}</td>
   </ng-container>
 
   <!-- State Column -->
-  <ng-container matColumnDef="Var(%)">
-    <th mat-header-cell *matHeaderCellDef>Var(%)</th>
+  <ng-container matColumnDef="delta">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Var(%)</th>
     <td mat-cell *matCellDef="let row">{{row.delta}}</td>
   </ng-container>
 
