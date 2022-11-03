@@ -8,7 +8,7 @@ import { Row } from 'src/app/row';
   styleUrls: ['./form.component.css']
 })
 
-export class FormComponent implements OnInit {
+export class FormComponent {
 
   date1:Object | undefined;
   date2:Object | undefined; 
@@ -119,7 +119,7 @@ export class FormComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  // ngOnInit(): void {
+  // }
 
 }
