@@ -39,13 +39,14 @@ export class FormComponent implements OnInit {
     let date_prices_arr: any[] = [];
 
     await this.loadPrice();
-    console.log(`getPrices() -> loadPrices() => ${this.price}`);
 
     while(loop <= end){
+      let previous_date = new Date(loop);
+      previous_date.setDate(previous_date.getDate() - 4); // passing a previous date to the API for formating reasons 
 
-      const previous_date = `${loop.getFullYear()}${String(loop.getMonth() + 1).padStart(2, '0')}${String(loop.getDate() - 1).padStart(2, '0')}`;
+      const previous_date_str = `${previous_date.getFullYear()}${String(previous_date.getMonth() + 1).padStart(2, '0')}${String(previous_date.getDate()).padStart(2, '0')}`;
       const loop_date = `${loop.getFullYear()}${String(loop.getMonth() + 1).padStart(2, '0')}${String(loop.getDate()).padStart(2, '0')}`;
-      const fetch_url = `${api_url}`+`${previous_date}`+`${api_url_2}`+`${loop_date}`;
+      const fetch_url = `${api_url}`+`${previous_date_str}`+`${api_url_2}`+`${loop_date}`;
 
       let date = `${loop.getDate()}/${loop.getMonth()}/${loop.getFullYear()}`;
 
@@ -70,6 +71,7 @@ export class FormComponent implements OnInit {
         })
         .catch((err) => {
           console.log(err);
+          console.log(fetch_url);
 
           date_prices_arr.push('err');
 
