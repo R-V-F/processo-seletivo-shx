@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Row } from 'src/app/row';
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
+
 export class FormComponent implements OnInit {
 
   date1:Object | undefined;
@@ -12,6 +15,8 @@ export class FormComponent implements OnInit {
   price:Number = 0;
   requested:Boolean = false;
   tableSource:Object[] | undefined;
+
+
 
 
   async loadPrice() {
@@ -53,17 +58,14 @@ export class FormComponent implements OnInit {
       await fetch(fetch_url)
         .then((response) => response.json())
         .then((data) => {
-          let row = {
-            date: "",
-            bid: 1,
-            delta: ""
-          };
           let delta = ((Number(this.price)/Number(data[0].bid)) - 1) * 100;
 
-          row.date = date;
-          row.bid = data[0].bid;
-          row.delta = String(delta.toFixed(2));
-
+          let row: Row = {
+            date: date,
+            bid: data[0].bid,
+            delta: delta.toFixed(2)
+          }
+          
           date_prices_arr.push(row);
 
           const newDate = loop.setDate(loop.getDate() + 1);
