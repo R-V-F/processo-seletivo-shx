@@ -7,6 +7,8 @@
     grid-template-areas: 
         "coin-img"
         "coin-img"
+        "coin-img"
+        "price"
         "price";
     place-items:  center;
     height: 100%;
@@ -16,7 +18,7 @@
 .price {
     grid-area: price;
     /* border: 1px solid; */
-    height: 50%;
+    height: 100%;
     width: 80%;
     display: grid;
     grid-template-areas: "price-tag";
@@ -25,8 +27,17 @@
 .price-tag {
     grid-area: price-tag;
     font-size: 47px;
-    margin-top: -230px;
+    /* margin-top: -230px; */
 }
+
+@media only screen and (max-width: 600px) {
+    .price-tag {
+        grid-area: price-tag;
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+}
+
 .coin-img {
     grid-area: coin-img;
     display: grid;
@@ -36,6 +47,7 @@
 img {
     height: 120px;
     width: 120px;
+    margin-top: 40px;
 }
 
 

@@ -27,7 +27,7 @@ export class DisplayComponent implements OnInit {
     },30000)
   }
 
-  loadDisplay() {
+  getPrice() {
     fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL")
     .then((response) => response.json())
     .then((data) => {
@@ -36,11 +36,13 @@ export class DisplayComponent implements OnInit {
     })
     .catch((err) => {
       console.log(err);
+      this.price = -1;
     });
   }
 
   ngOnInit(): void {
-    this.loadDisplay();
+    this.getPrice()
+
     this.updateDisplay();
   }
 

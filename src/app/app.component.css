@@ -4,8 +4,15 @@
     width: auto;
     height: 100vh;
     grid-template-areas:
-            "side1 main main main side2"
+            "side1 main main main side2";
 }
+/* @media only screen and (max-width: 600px) {
+    .grid-container {
+        grid-template-areas:
+                "main";
+    }
+} */
+
 
 .side1 {
     grid-area: side1;
@@ -30,7 +37,7 @@
 }
 .display {
     grid-area: display;
-    height: 50vh;
+    height: 40vh;
 }
 .form {
     grid-area: form;
