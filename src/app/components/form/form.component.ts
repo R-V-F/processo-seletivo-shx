@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PriceService } from 'src/app/price.service';
 
 import { Row } from 'src/app/row';
 
@@ -12,25 +13,9 @@ export class FormComponent {
 
   date1:Object | undefined;
   date2:Object | undefined; 
-  price:Number = 0;
+  price:Number | undefined;
   requested:Boolean = false;
   tableSource:Object[] | undefined;
-
-
-
-  /**
-   * Fetches USD/BRL last bid 
-   */
-  async loadPrice() {
-    await fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL")
-    .then((response) => response.json())
-    .then((data) => {
-      this.price = data.USDBRL.bid;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
 
   /**
    * 
@@ -45,8 +30,11 @@ export class FormComponent {
     let loop = new Date(beginning);
     let date_prices_arr: any[] = [];
 
-    await this.loadPrice();
-
+    await this.price_service.getPrice()
+      .then((price)=> {
+        this.price = price;
+      });
+    
     while(loop <= end){
       let previous_date = new Date(loop);
       previous_date.setDate(previous_date.getDate() - 4); // passing a previous date to the API for formating reasons 
@@ -117,7 +105,7 @@ export class FormComponent {
 
   
 
-  constructor() { }
+  constructor(private price_service: PriceService) { }
 
   // ngOnInit(): void {
   // }

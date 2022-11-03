@@ -9,14 +9,16 @@ export class PriceService {
   async getPrice() {
     let price;
 
-    await fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL")
+    let promise = fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL")
     .then((response) => response.json())
     .then((data) => {
-      price = data.USDBRL.bid;
+      return data.USDBRL.bid;
+
     })
     .catch((err) => {
       console.log(err);
-      price = -1;
+      return -1;
     });
+    return promise;
   }
 }

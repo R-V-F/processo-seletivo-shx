@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PriceService } from 'src/app/price.service';
 
 @Component({
   selector: 'app-display',
@@ -10,7 +11,8 @@ export class DisplayComponent implements OnInit {
   price: number | undefined;
   now: Date | undefined;
 
-  constructor() { }
+  constructor(private price_service: PriceService) { }
+
   /**
    * Updates this.price and this.now
    */
@@ -31,25 +33,13 @@ export class DisplayComponent implements OnInit {
     },30000)
   }
 
-  /**
-   * Fetches USD/BRL last bid
-   */
-  loadPrice() {
-    fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL")
-    .then((response) => response.json())
-    .then((data) => {
-      // console.log(data.USDBRL.bid);
-      this.price = data.USDBRL.bid;
-    })
-    .catch((err) => {
-      alert('API Error');
-    });
-  }
-
   ngOnInit(): void {
     this.now = new Date();
 
-    this.loadPrice()
+    this.price_service.getPrice()
+      .then((price) => {
+        this.price = price;
+      });
 
     this.updateDisplay();
   }
