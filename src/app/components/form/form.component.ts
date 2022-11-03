@@ -18,7 +18,9 @@ export class FormComponent implements OnInit {
 
 
 
-
+  /**
+   * Fetches USD/BRL last bid 
+   */
   async loadPrice() {
     await fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL")
     .then((response) => response.json())

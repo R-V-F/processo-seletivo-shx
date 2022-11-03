@@ -32,9 +32,9 @@ export class DisplayComponent implements OnInit {
   }
 
   /**
-   * Updates this.price
+   * Fetches USD/BRL last bid
    */
-  getPrice() {
+  loadPrice() {
     fetch("https://economia.awesomeapi.com.br/json/last/USD-BRL")
     .then((response) => response.json())
     .then((data) => {
@@ -49,7 +49,7 @@ export class DisplayComponent implements OnInit {
   ngOnInit(): void {
     this.now = new Date();
 
-    this.getPrice()
+    this.loadPrice()
 
     this.updateDisplay();
   }
