@@ -17,60 +17,7 @@ export class FormComponent {
   requested:Boolean = false;
   tableSource:Object[] | undefined;
 
-  /**
-   * 
-   * @param beginning start date
-   * @param end end date
-   * @returns array with objects to feed each row => one row/day
-   */
-  async getPrices(beginning: Date, end: Date) {
-    let api_url = 'https://economia.awesomeapi.com.br/USD-BRL/1?start_date='; 
-    let api_url_2 = '&end_date=';
-
-    let loop = new Date(beginning);
-    let date_prices_arr: any[] = [];
-
-    await this.price_service.getPrice()
-      .then((price)=> {
-        this.price = price;
-      });
-    
-    while(loop <= end){
-      let previous_date = new Date(loop);
-      previous_date.setDate(previous_date.getDate() - 4); // passing a previous date to the API for formating reasons 
-
-      const previous_date_str = `${previous_date.getFullYear()}${String(previous_date.getMonth() + 1).padStart(2, '0')}${String(previous_date.getDate()).padStart(2, '0')}`;
-      const loop_date = `${loop.getFullYear()}${String(loop.getMonth() + 1).padStart(2, '0')}${String(loop.getDate()).padStart(2, '0')}`;
-      const fetch_url = `${api_url}`+`${previous_date_str}`+`${api_url_2}`+`${loop_date}`;
-
-      let date = `${loop.getDate()}/${loop.getMonth()}/${loop.getFullYear()}`;
-
-      await fetch(fetch_url)
-        .then((response) => response.json())
-        .then((data) => {
-          let delta = ((Number(this.price)/Number(data[0].bid)) - 1) * 100;
-
-          let row: Row = {
-            date: date,
-            bid: data[0].bid,
-            delta: delta.toFixed(2)
-          }
-
-          date_prices_arr.push(row);
-
-          const newDate = loop.setDate(loop.getDate() + 1);
-          loop = new Date(newDate);
-        })
-        .catch((err) => {
-          date_prices_arr.push('err');
-
-          const newDate = loop.setDate(loop.getDate() + 1);
-          loop = new Date(newDate);
-        });
-    }
-
-    return date_prices_arr;
-  }
+  
   /**
    * Fetches table sources and set this.requested to true (renders table component) 
    */
@@ -95,7 +42,7 @@ export class FormComponent {
       const beginning = new Date(str_date1);
       const end = new Date(str_date2);
 
-      this.tableSource = await this.getPrices(beginning,end);
+      this.tableSource = await this.price_service.getPrices(beginning,end);
       this.requested = true;
     }
     else {
